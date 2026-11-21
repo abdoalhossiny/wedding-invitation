@@ -1,0 +1,764 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>دعوة زفاف عبد المجيد وآلاء</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+box-sizing:border-box;
+}
+
+:root {
+--gold:#d5b36b;
+--gold2:#f4dfac;
+--dark:#101c32;
+--dark2:#243a59;
+--cream:#fffaf1;
+}
+
+body {
+margin:0;
+min-height:100vh;
+font-family:'Cairo',sans-serif;
+background:
+radial-gradient(ellipse at top,#344d6c 0%,transparent 60%),
+linear-gradient(145deg,#0c1528,#203653,#101a2e);
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+overflow-x:hidden;
+color:white;
+}
+
+.stars {
+position:fixed;
+inset:0;
+pointer-events:none;
+background-image:
+radial-gradient(#ffffff 1px,transparent 1px),
+radial-gradient(#e5c982 1px,transparent 1px);
+background-size:50px 50px,90px 90px;
+background-position:0 0,25px 25px;
+opacity:.15;
+animation:twinkle 4s infinite alternate;
+}
+
+@keyframes twinkle {
+from {opacity:.08}
+to {opacity:.24}
+}
+
+.shell {
+width:100%;
+max-width:500px;
+position:relative;
+z-index:2;
+}
+
+/* شاشة كلمة المرور */
+
+.lock {
+background:rgba(17,32,55,.92);
+border:1px solid rgba(213,179,107,.6);
+border-radius:25px;
+padding:30px 22px;
+text-align:center;
+box-shadow:0 20px 60px #0005;
+backdrop-filter:blur(10px);
+}
+
+.lock h1 {
+font-family:'Amiri',serif;
+color:var(--gold2);
+font-size:32px;
+margin:0 0 10px;
+}
+
+.lock p {
+line-height:2;
+color:#e4eaf2;
+}
+
+.inputrow {
+display:flex;
+gap:10px;
+margin-top:20px;
+}
+
+input {
+min-width:0;
+flex:1;
+padding:13px;
+border-radius:12px;
+border:1px solid #d5b36b;
+background:#fff;
+text-align:center;
+font-family:'Cairo',sans-serif;
+font-size:17px;
+outline:none;
+}
+
+button {
+font-family:'Cairo',sans-serif;
+border:none;
+cursor:pointer;
+transition:.3s;
+}
+
+.unlockbtn {
+padding:12px 22px;
+border-radius:12px;
+background:linear-gradient(135deg,#f0d394,#b88c45);
+color:#172238;
+font-weight:800;
+}
+
+.unlockbtn:hover {
+transform:scale(1.04);
+box-shadow:0 0 20px #d5b36b66;
+}
+
+.error {
+color:#ffaaaa;
+margin-top:10px;
+min-height:24px;
+}
+
+/* شاشة الظرف */
+
+.envelope-screen {
+display:none;
+text-align:center;
+padding:30px 10px;
+animation:fadeIn 1s ease;
+}
+
+.envelope-screen h2 {
+font-family:'Amiri',serif;
+color:var(--gold2);
+font-size:30px;
+}
+
+.envelope-screen p {
+color:#e5eaf2;
+}
+
+.envelope-wrap {
+width:290px;
+height:195px;
+margin:65px auto 35px;
+position:relative;
+cursor:pointer;
+perspective:1000px;
+filter:drop-shadow(0 15px 25px #0006);
+}
+
+.envelope {
+position:absolute;
+inset:0;
+background:linear-gradient(135deg,#f2d69b,#c79b50);
+border-radius:5px;
+overflow:visible;
+}
+
+.envelope-back {
+position:absolute;
+inset:0;
+background:linear-gradient(135deg,#d6b36c,#aa7b35);
+border-radius:5px;
+}
+
+.envelope-flap {
+position:absolute;
+left:0;
+top:0;
+width:0;
+height:0;
+border-left:145px solid transparent;
+border-right:145px solid transparent;
+border-top:112px solid #f4dca5;
+transform-origin:top;
+transition:transform 1s ease;
+z-index:5;
+}
+
+.envelope-front {
+position:absolute;
+inset:0;
+z-index:4;
+background:linear-gradient(140deg,#e9c982,#bd9048);
+clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%);
+}
+
+.envelope-front:after {
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(45deg,transparent 49%,#ffffff20 50%,transparent 52%);
+}
+
+.letter {
+position:absolute;
+width:85%;
+height:88%;
+left:7.5%;
+top:5%;
+background:#fffaf0;
+border:1px solid #d4b16b;
+border-radius:5px;
+transition:transform 1.2s ease;
+z-index:2;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+color:#9b783e;
+font-family:'Amiri',serif;
+}
+
+.letter span {
+font-size:23px;
+}
+
+.seal {
+position:absolute;
+width:58px;
+height:58px;
+border-radius:50%;
+background:radial-gradient(circle at 30% 30%,#f5dba0,#b8893d 80%);
+box-shadow:0 3px 12px #76521e66;
+left:50%;
+top:57%;
+transform:translate(-50%,-50%);
+z-index:6;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#fff8e8;
+font-size:26px;
+transition:opacity .5s,transform .5s;
+border:2px solid #f0d8a5;
+}
+
+.envelope-wrap.open .envelope-flap {
+transform:rotateX(180deg);
+z-index:1;
+}
+
+.envelope-wrap.open .letter {
+transform:translateY(-115px);
+}
+
+.envelope-wrap.open .seal {
+opacity:0;
+transform:translate(-50%,-50%) scale(.5);
+}
+
+.envelope-wrap.open {
+animation:envelopeFade 1.5s forwards;
+animation-delay:1.8s;
+}
+
+@keyframes envelopeFade {
+to {opacity:0;transform:scale(.7)}
+}
+
+.open-hint {
+color:var(--gold2);
+font-weight:700;
+animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+0%,100% {opacity:1}
+50% {opacity:.5}
+}
+
+/* الدعوة */
+
+.invite {
+display:none;
+background:var(--cream);
+color:#28364e;
+border-radius:25px;
+padding:28px 20px;
+text-align:center;
+border:2px solid var(--gold);
+box-shadow:0 20px 60px #0005;
+position:relative;
+overflow:hidden;
+}
+
+.invite.show {
+display:block;
+animation:fadeIn 1.3s ease;
+}
+
+.invite:before {
+content:"";
+position:absolute;
+inset:8px;
+border:1px solid #dec38d;
+border-radius:18px;
+pointer-events:none;
+}
+
+.title {
+font-family:'Amiri',serif;
+font-size:39px;
+color:#b18a4b;
+margin-top:5px;
+}
+
+.subtitle {
+color:#8e6a2d;
+font-size:15px;
+}
+
+.names {
+font-family:'Amiri',serif;
+font-size:37px;
+margin:18px 0;
+color:#253550;
+font-weight:bold;
+}
+
+.heart {
+color:#bd5365;
+display:inline-block;
+animation:heartBeat 1.8s infinite;
+}
+
+@keyframes heartBeat {
+0%,100% {transform:scale(1)}
+15% {transform:scale(1.25)}
+30% {transform:scale(1)}
+45% {transform:scale(1.2)}
+}
+
+.poem {
+background:white;
+border:1px solid #ead8b5;
+border-radius:16px;
+padding:17px 10px;
+margin-top:15px;
+line-height:2.1;
+font-family:'Amiri',serif;
+font-size:19px;
+color:#795d35;
+box-shadow:0 5px 15px #b89a5b15;
+}
+
+.details {
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:9px;
+margin-top:17px;
+}
+
+.detail {
+background:#f8efdf;
+border:1px solid #dec38d;
+padding:12px 6px;
+border-radius:13px;
+font-size:14px;
+line-height:1.9;
+}
+
+.detail b {
+color:#987339;
+}
+
+.venue {
+margin-top:10px;
+background:#f8efdf;
+border:1px solid #dec38d;
+padding:13px;
+border-radius:13px;
+line-height:1.9;
+}
+
+.countdown {
+background:linear-gradient(135deg,#203654,#101c32);
+color:#f4dfac;
+padding:18px 12px;
+border-radius:17px;
+margin-top:17px;
+border:1px solid #c8a96a;
+}
+
+.countdown h3 {
+margin:0 0 12px;
+font-family:'Amiri',serif;
+font-size:22px;
+}
+
+.timer {
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:7px;
+direction:rtl;
+}
+
+.timebox {
+background:#ffffff12;
+border:1px solid #ffffff20;
+border-radius:10px;
+padding:10px 2px;
+}
+
+.timebox span {
+display:block;
+font-size:23px;
+font-weight:800;
+}
+
+.timebox small {
+font-size:11px;
+color:#ead6a8;
+}
+
+.rsvp {
+display:block;
+text-decoration:none;
+padding:13px;
+margin-top:11px;
+border-radius:13px;
+color:white;
+font-weight:800;
+transition:transform .25s,filter .25s;
+position:relative;
+z-index:2;
+}
+
+.rsvp:hover {
+transform:translateY(-3px);
+filter:brightness(1.08);
+}
+
+.whatsapp {background:#25D366}
+.map {background:#0d6efd}
+.calendar {background:#198754}
+
+.qr-wrap {
+margin-top:18px;
+}
+
+.qr-wrap img {
+width:190px;
+height:190px;
+background:white;
+padding:10px;
+border-radius:15px;
+border:1px solid #e0c68e;
+box-shadow:0 5px 18px #0001;
+}
+
+.qr-caption {
+color:#8e6a2d;
+font-weight:bold;
+font-size:14px;
+}
+
+.footer {
+margin-top:19px;
+color:#9c793f;
+font-family:'Amiri',serif;
+font-size:19px;
+}
+
+.footer-heart {
+color:#c53c61;
+}
+
+@keyframes fadeIn {
+from {opacity:0;transform:translateY(20px)}
+to {opacity:1;transform:translateY(0)}
+}
+
+@media(max-width:400px) {
+.lock {padding:24px 15px}
+.title {font-size:33px}
+.names {font-size:31px}
+.details {grid-template-columns:1fr}
+.timer {gap:4px}
+.timebox span {font-size:19px}
+.envelope-wrap {transform:scale(.88)}
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<div class="shell">
+
+<!-- شاشة كلمة المرور -->
+
+<div class="lock" id="lockbox">
+
+<h1>دعوة خاصة ✨</h1>
+
+<p>
+دعوة زفاف عبد المجيد وآلاء
+<br>
+أدخل رمز الدعوة لفتح الظرف
+</p>
+
+<div class="inputrow">
+<input id="password" type="password" placeholder="رمز الدعوة">
+<button class="unlockbtn" id="unlock">دخول</button>
+</div>
+
+<div class="error" id="error"></div>
+
+</div>
+
+<!-- الظرف الذهبي -->
+
+<div class="envelope-screen" id="envelopeScreen">
+
+<h2>إلى ضيفنا العزيز</h2>
+<p>لقد وصلتك دعوة خاصة لحضور ليلة العمر</p>
+
+<div class="envelope-wrap" id="envelopeWrap">
+
+<div class="envelope">
+<div class="envelope-back"></div>
+
+<div class="letter">
+<span>دعوة زفاف</span>
+<div>عبد المجيد ♥ آلاء</div>
+</div>
+
+<div class="envelope-flap"></div>
+<div class="envelope-front"></div>
+<div class="seal">♥</div>
+</div>
+
+</div>
+
+<div class="open-hint">اضغط على الظرف لفتح دعوتك ✨</div>
+
+</div>
+
+<!-- الدعوة -->
+
+<div class="invite" id="invitation">
+
+<div class="title">دعوة زفاف</div>
+
+<p class="subtitle">بسم الله الرحمن الرحيم</p>
+
+<div class="names">
+عبد المجيد <span class="heart">♥</span> آلاء
+</div>
+
+<div class="poem">
+اللهم بارك لهما وبارك عليهما
+<br>
+واجمع بينهما في خير
+</div>
+
+<div class="details">
+
+<div class="detail">
+<b>اليوم</b><br>
+السبت
+</div>
+
+<div class="detail">
+<b>التاريخ</b><br>
+8 مايو 2027
+</div>
+
+<div class="detail">
+<b>الوقت</b><br>
+9 مساءً
+</div>
+
+</div>
+
+<div class="venue">
+<b>📍 المكان</b><br>
+قاعة الماسة للحفلات
+</div>
+
+<!-- العداد -->
+
+<div class="countdown" id="countdown">
+
+<h3>الوقت المتبقي على ليلة العمر 💍</h3>
+
+<div class="timer">
+
+<div class="timebox">
+<span id="days">0</span>
+<small>يوم</small>
+</div>
+
+<div class="timebox">
+<span id="hours">00</span>
+<small>ساعة</small>
+</div>
+
+<div class="timebox">
+<span id="minutes">00</span>
+<small>دقيقة</small>
+</div>
+
+<div class="timebox">
+<span id="seconds">00</span>
+<small>ثانية</small>
+</div>
+
+</div>
+</div>
+
+<!-- واتساب -->
+
+<a class="rsvp whatsapp"
+href="https://wa.me/201060708913?text=أؤكد%20حضوري%20يا%20عبدالمجيد%20❤️"
+target="_blank">
+💚 تأكيد الحضور عبر واتساب
+</a>
+
+<!-- خرائط -->
+
+<a class="rsvp map"
+href="https://maps.app.goo.gl/MJpTzhr6jtCYiH8M8"
+target="_blank">
+📍 فتح موقع القاعة على خرائط Google
+</a>
+
+<!-- QR -->
+
+<div class="qr-wrap">
+
+<img
+src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fmaps.app.goo.gl%2FMJpTzhr6jtCYiH8M8"
+alt="QR Code موقع القاعة">
+
+<p class="qr-caption">
+امسح الكود للوصول إلى موقع القاعة
+</p>
+
+</div>
+
+<!-- التقويم -->
+
+<a class="rsvp calendar"
+href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%D8%B2%D9%81%D8%A7%D9%81%20%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D9%85%D8%AC%D9%8A%D8%AF%20%D9%88%D8%A2%D9%84%D8%A7%D8%A1&dates=20270508T190000Z%2F20270508T220000Z&details=%D8%AF%D8%B9%D9%88%D8%A9%20%D8%B2%D9%81%D8%A7%D9%81&location=%D9%82%D8%A7%D8%B9%D8%A9%20%D8%A7%D9%84%D9%85%D8%A7%D8%B3%D8%A9%20%D9%84%D9%84%D8%AD%D9%81%D9%84%D8%A7%D8%AA"
+target="_blank">
+📅 إضافة موعد الزفاف إلى التقويم
+</a>
+
+<div class="footer">
+في انتظاركم لنحتفل معاً
+<span class="footer-heart">♥</span>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* كلمة المرور */
+
+const pass = '2002';
+
+const lock = document.getElementById('lockbox');
+const envelopeScreen = document.getElementById('envelopeScreen');
+const invite = document.getElementById('invitation');
+const passInput = document.getElementById('password');
+const error = document.getElementById('error');
+const envelopeWrap = document.getElementById('envelopeWrap');
+
+function unlockInvitation() {
+
+if(passInput.value === pass) {
+
+lock.style.display = 'none';
+envelopeScreen.style.display = 'block';
+
+} else {
+
+error.innerText = 'رمز الدعوة غير صحيح، حاول مرة أخرى';
+passInput.value = '';
+passInput.focus();
+
+}
+
+}
+
+document.getElementById('unlock').onclick = unlockInvitation;
+
+passInput.addEventListener('keydown',function(e) {
+if(e.key === 'Enter') unlockInvitation();
+});
+
+/* فتح الظرف */
+
+let envelopeOpened = false;
+
+envelopeWrap.addEventListener('click',function(){
+
+if(envelopeOpened) return;
+
+envelopeOpened = true;
+envelopeWrap.classList.add('open');
+
+setTimeout(function(){
+
+envelopeScreen.style.display = 'none';
+invite.classList.add('show');
+
+},2800);
+
+});
+
+/* العداد التنازلي */
+
+const weddingDate = new Date(2027,4,8,22,0,0);
+
+function updateCountdown(){
+
+const now = new Date();
+const diff = weddingDate - now;
+
+if(diff <= 0){
+
+document.getElementById('countdown').innerHTML =
+'<h3>🎉 بدأت ليلة الزفاف 🎉</h3>';
+
+return;
+
+}
+
+const days = Math.floor(diff / (1000*60*60*24));
+const hours = Math.floor((diff / (1000*60*60)) % 24);
+const minutes = Math.floor((diff / (1000*60)) % 60);
+const seconds = Math.floor((diff / 1000) % 60);
+
+document.getElementById('days').innerText = days;
+document.getElementById('hours').innerText = String(hours).padStart(2,'0');
+document.getElementById('minutes').innerText = String(minutes).padStart(2,'0');
+document.getElementById('seconds').innerText = String(seconds).padStart(2,'0');
+
+}
+
+updateCountdown();
+setInterval(updateCountdown,1000);
+
+</script>
+
+</body>
+</html>
